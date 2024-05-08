@@ -32,6 +32,8 @@ def calculate_cosine_similarity(text1, texts):
 
 # Function to caption the image and authenticate based on selected room
 def caption_and_authenticate_image(image_path, selected_room):
+    if selected_room=='others':
+        return True
     encoded_image = encode_image(image_path)
     room_options = ['living room', 'bedroom', 'kitchen', 'bathroom', 'others'] # see mobile ui
 
@@ -61,7 +63,7 @@ def caption_and_authenticate_image(image_path, selected_room):
     ]
 
     max_similarity = calculate_cosine_similarity(personalized_result, known_error_messages)
-    similarity_threshold = 0.5
+    similarity_threshold = 0.25
 
     if max_similarity > similarity_threshold:
         # return "Please take the photo again."
