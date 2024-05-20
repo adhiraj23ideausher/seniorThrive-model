@@ -17,7 +17,7 @@ def auth_image():
     img_url = request.json['img_url']
     selection = request.json['selection']
     is_valid = caption_and_authenticate_image(img_url,selection)
-    return jsonify({'valid':is_valid})
+    return jsonify(is_valid)
 
 @app.route('/scan', methods=['POST'])
 def scan_image():

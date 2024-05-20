@@ -76,11 +76,11 @@ def caption_image(image_path):
 
 def get_prompt_obj(user_input):
     result = openai.chat.completions.create(
-    model="gpt-3.5-turbo",
+    model="gpt-4o",
     # model="gpt-3.5-turbo-0125",
     # response_format={ "type": "json_object" },
             messages=[
-                {"role": "system", "content": "Analyze the whole prompt in which there are points which are numbered,I want to you an return array of objects from this where each object will have key title like the heading of the problem that will be a string and description key that will be a string that will be the descrtipion of the problem that describes about the heading. Also there will be a key named products that will store a string with the name of the product named as Product sugesstion in the input and also a key named as videos that will be a strings too and store the name of video from the input and a key named risk can have one out of three values low,moderate or critical. Remember the final output will be array of object in proper JSON format and the string should start from [ and end from ] nothing before or after."},
+                {"role": "system", "content": "Analyze the whole prompt in which there are points which are numbered,I want to you an return array of objects from this where each object will have key title like the heading of the problem that will be a string and description key that will be a string that will be the descrtipion of the problem that describes about the heading. Also there will be a key named products that will store a string with the name of the product named as Product sugesstion in the input and also a key named as videos that will be a strings too and store the name of video from the input and a key named risk can have one out of three values low,moderate or critical, risk cannot be low to moderate or moderate to critical it can just be one out of three low, moderate or critical. Remember the final output will be array of object in proper JSON format and the string should start from [ and end from ] nothing before or after."},
                 {"role": "user", "content": user_input},
             ]
     )
@@ -88,3 +88,8 @@ def get_prompt_obj(user_input):
     personalized_result = result.choices[0].message.content
     return personalized_result
 
+# url = 'https://seniorthrive.s3.us-east-1.amazonaws.com/public/scanImages/19b0c0cf-adf3-46b5-9f09-337e594fb4a6-IMG_6504.jpg'
+
+# res = caption_image(url)
+
+# print(get_prompt_obj(res))

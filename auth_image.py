@@ -46,7 +46,7 @@ def caption_and_authenticate_image(image_path, selected_room):
             {
                 "role": "user",
                 "content": [
-                    {"type": "text", "text": f"Tell me if the given photo is of the {selected_room} in one word yes or no"},
+                    {"type": "text", "text": f"Tell me if the given photo is of the selection {selected_room}, return yes if it matches or if the room is dark then return string 'The the room is not well lit' or if the room is well lit but the selection does not match with the image given then return a string that the 'Image provided does not match with the selection provided' "},
                     {"type": "image_url", "image_url": f"data:image/jpeg;base64,{encoded_image}"},
                 ]
             },
@@ -67,13 +67,14 @@ def caption_and_authenticate_image(image_path, selected_room):
 
     if max_similarity > similarity_threshold:
         # return "Please take the photo again."
-        return False
+        return {'result':personalized_result}
     elif "yes" in personalized_result.lower():  # Check if the output contains "yes"
         # return image_path  
-        return True
+        return {'valid':True}
     else:
         # return "Please reselect the option."
-        return False
+        return  {'result':personalized_result}
 
 # url='https://upload.wikimedia.org/wikipedia/commons/5/50/Black_colour.jpg'
-# print(caption_and_authenticate_image(url,'toilet'))
+# url = 'https://seniorthrive.s3.us-east-1.amazonaws.com/public/scanImages/19b0c0cf-adf3-46b5-9f09-337e594fb4a6-IMG_6504.jpg'
+# print(caption_and_authenticate_image(url,'kitchen'))
